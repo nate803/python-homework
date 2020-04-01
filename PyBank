@@ -1,1 +1,73 @@
+## Read in the PyBank Dataset
+# Import the pandas library
+# Read the data in as a data frame
 
+import pandas as pd
+pyBank_df = pd.read_csv('C:/FinTech/budget_data.csv')  # Read the dataset in as a pandas data frame
+pyBank_df.head()                                       # print the first 5 rows of the data frame
+pyBank_df.sample()                                     # print a 5 row sample of the data frame
+pyBank_df.tail()                                       # print the borrom 5 rows of the data frame
+#print(pyBank_df)                                      # print the pyBank data frame
+
+## Find the Total Months included in the pyBank Dataset
+print(len(pyBank_df))
+
+## PyBank Summary Statistics
+print("------------Summary Statistics Report--------------")
+totRecords = len(pyBank_df)                    # Count of the Total number of records in the data frame
+print('Total Records:', totRecords, end="")    # Print the total number of records in the data frame
+print()
+avgProfit = round(pyBank_df.mean(),2)          # Mean function of the pyBank data frame
+print('Average Profit:', avgProfit, end="")    # Print the average profit on the same line w/end=""
+print()
+maxProfit=pyBank_df.max()                      # Maximum function of the pyBank data frame
+print('Maximum Profit:',maxProfit, end="")     # Print the Maximum profit on the same line w/end=""
+print()
+minProfit = pyBank_df.min()                    # Minimum function of the pyBank data frame
+print('Minimum Profit:',minProfit, end="")     # Print the Minimum profit/loss on the same line
+print()
+totProfit = pyBank_df.sum()                    # Sum function of the pyBank data frme
+print('Total Profit:', totProfit, end="")      # Print the Total profit on the same line
+print()
+print("-------------- End Report ------------------------------")
+
+
+############## SOLUTION #2 ############################
+
+# Import the pathlib and csv libary
+from pathlib import Path
+import csv
+​
+# Set the file paths
+budget_data = Path("C:/FinTech/budget_data.csv")
+​
+# Initalize Variables:
+count=0
+totProfit_loss = 0
+maxProfit=0
+minProfit = 0
+avgProfit = 0
+​
+# Open the input path as a file object
+with open(budget_data, 'r') as csvfile:
+      csvreader = csv.reader(csvfile, delimiter=",")
+​
+    # Iterate through the data and search for the number the user inputted. Remember to skip the header of the CSV.
+      csv_header = next(csvreader)
+​
+      for row in csvreader:
+        # Print the rows of column 1, Profit/Loss
+        #print(row[1])
+        count = count+1
+        totProfit_loss = int(row[1]) + totProfit_loss
+        
+        if int(row[1]) < 0:
+            minProfit = int(row[1])
+        elif int(row[1]) > maxProfit:
+            maxProfit = int(row[1])
+        
+print (f"Total",totProfit_loss)
+print (f"Total Months:",count)
+print (f"Gratest Decrease:", minProfit)
+print (f"Greatest Increase:", maxProfit)
+print(f"Avgerage Profit-Loss:$",round(totProfit_loss/count))

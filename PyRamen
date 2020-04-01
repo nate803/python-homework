@@ -1,1 +1,49 @@
+# Import the pathlib and csv libary
+from pathlib import Path
+import csv
+
+# Set the file paths
+menu_data = Path("C:/FinTech/menu_data.csv")
+sales_data = Path("C:/FinTech/menu_data.csv")
+
+
+
+# Initialise Lists:
+menu_list =[]     # empty menu list
+sales_list =[]    # empty sales list
+
+# Initalize Variables:
+count=0
+revenue = 0
+cogs = 0
+profit = 0
+line_num =0
+
+# Open the input path as a file object (x2)
+with open(menu_data, 'r') as csvfile:
+
+    # Print the datatype of the file object
+    print(type(csvfile))
+
+    # Pass in the csv file to the csv.reader() function
+    # (with ',' as the delmiter/separator) and return the csvreader object
+    csvreader = csv.reader(csvfile, delimiter=',')
+    # Print the datatype of the csvreader
+    print(type(csvreader))
+
+    # Go to the next row from the start of the file
+    # (which is often the first row/header) and iterate line_num by 1
+    header = next(csvreader)
+    line_num += 1
+    # Print the header
+    print(f"{header} <---- HEADER")
+
+    
+    # Read each row of data after the header
+    for row in csvreader:
+          menu = row[0:33]
+          menu_list.append(menu)
+print(menu_list)                 # Check the menu_list
+          
+
 
